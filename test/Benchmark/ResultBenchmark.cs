@@ -6,10 +6,11 @@ public class ResultBenchmark
 {
     private static int ReturnOne() => 1;
 
+    private static DotNext.Result<int> ReturnOneDotNext() => 1;
+
     private static RefStruct.Result<int> ReturnRefStructOne() => RefStruct.Result.Ok(1);
 
     private static RefStruct.Result<int> ReturnRefStructOneConv() => 1;
-
 
     private static Struct.Result<int> ReturnStructOne() => Struct.Result.Ok(1);
 
@@ -19,6 +20,12 @@ public class ResultBenchmark
     public void Measure_ReturnOne()
     {
         var result = ReturnOne();
+    }
+
+    [Benchmark]
+    public void Measure_ReturnOneDotNext()
+    {
+        var result = ReturnOneDotNext();
     }
 
     [Benchmark]

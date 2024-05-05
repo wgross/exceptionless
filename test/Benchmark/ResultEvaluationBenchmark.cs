@@ -7,7 +7,9 @@ public class ResultEvaluationBenchmark
 {
     private static int ReturnOne() => 1;
 
-    private static RefStruct.Result<int> ReturnRefStructOne() => RefStruct.Result.Ok(1);
+    private static DotNext.Result<int> ReturnOneDotNext() => 1;
+
+    private static RefStruct.Result<int> ReturnRefStructOne() => 1;
 
     private static Struct.Result<int> ReturnStructOne() => Struct.Result.Ok(1);
 
@@ -21,6 +23,16 @@ public class ResultEvaluationBenchmark
         var result = ReturnOne();
         if (result == 1)
             value = result;
+    }
+
+    [Benchmark]
+    public void Measure_ReturnOneDotNext()
+    {
+        var value = 0;
+
+        var result = ReturnOneDotNext();
+        if (result.IsSuccessful)
+            value = result.Value;
     }
 
     [Benchmark]
