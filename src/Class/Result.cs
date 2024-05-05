@@ -1,4 +1,6 @@
-﻿namespace Class;
+﻿using System.Diagnostics.Contracts;
+
+namespace Class;
 
 public interface Result
 {
@@ -10,7 +12,6 @@ public interface Result
 public interface Result<T> : Result
 {
     public static Ok<T> Ok(T value) => new Ok<T>(value);
-
 
     public T Value { get; }
 

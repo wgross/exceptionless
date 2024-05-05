@@ -13,6 +13,16 @@ public class ResultTest
     }
 
     [Fact]
+    public void Return_Ok_Converted()
+    {
+        Result<int> func() => 1;
+
+        var result = func();
+
+        Assert.True(result is { HasValue: true, Value: 1 });
+    }
+
+    [Fact]
     public void Return_error()
     {
         Result<int> func() => Result.Error<int>(new Exception("fail"));
@@ -21,6 +31,19 @@ public class ResultTest
 
         Assert.False(result.HasValue);
         Assert.True(result is { HasValue: false, Reason: { Message: "fail" } });
+        Assert.Contains("ResultTest.Return_error", result.Reason.Data[nameof(Environment.StackTrace)]!.ToString());
+    }
+
+    [Fact]
+    public void Return_error_Converted()
+    {
+        Result<int> func() => new Exception("fail");
+
+        var result = func();
+
+        Assert.False(result.HasValue);
+        Assert.True(result is { HasValue: false, Reason: { Message: "fail" } });
+        Assert.Contains("ResultTest.Return_error", result.Reason.Data[nameof(Environment.StackTrace)]!.ToString());
     }
 
     [Fact]
